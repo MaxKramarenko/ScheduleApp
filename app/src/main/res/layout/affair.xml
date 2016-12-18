@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp">
+
+    <TextView
+        android:id="@+id/lessonName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Название"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/teacher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/room"
+        android:layout_alignStart="@id/room"
+        android:layout_below="@+id/room"
+        android:text="Сообщение"
+        android:layout_weight="1"/>
+
+</LinearLayout>
