@@ -15,3 +15,6 @@ AcheduleApp uses a number of open source projects to work properly:
 ### Installation
 
 Go to Service class in API package, and change SERVER_URL to your url api.
+Default value is http://192.168.0.100/skapi/
+
+app-release.apk is compiled project
