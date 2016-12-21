@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context="com.charleyskills.scheduleapp.presenter.views.TimelineActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:theme="?attr/actionBarTheme"
+        android:minHeight="45dp"
+        android:id="@+id/toolbar"
+        app:titleTextColor="@android:color/white"
+        >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:layout_marginRight="10dp">
+
+                <TextView
+                    android:text="+"
+                    android:id="@+id/addPair"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/white"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:visibility="invisible"
+                    android:alpha="0"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
+
+                <TextView
+                    android:text="1"
+                    android:id="@+id/firstWeekTextView"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/white"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
+
+                <TextView
+                    android:text="2"
+                    android:id="@+id/secondWeekTextView"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
+            </LinearLayout>
+
+            <TextView
+                android:text="KPI Schedule"
+                android:id="@+id/toolbarTextView"
+                android:textSize="24sp"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:clickable="true"
+                android:background="@drawable/timetable_selector"
+                android:textColor="@android:color/white"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"/>
+        </FrameLayout>
+    </android.support.v7.widget.Toolbar>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark">
+
+        <TextView
+            android:text="Pairs is absent on this week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/absentPairsTextView"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:alpha="0"/>
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/coverProgressBar"
+            android:layout_gravity="center"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/coverFrameLayout">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vpPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible">
+
+                <android.support.v4.view.PagerTitleStrip
+                    android:id="@+id/pager_title_strip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:background="@color/colorPrimaryDark"
+                    android:textColor="#fff"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"/>
+
+            </android.support.v4.view.ViewPager>
+
+        </FrameLayout>
+    </FrameLayout>
+
+</LinearLayout>
+

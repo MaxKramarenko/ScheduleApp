@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_pair"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.charleyskills.scheduleapp.presenter.views.AddPairActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:text="Number:"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/textView2"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"/>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/numberSpinner"
+            android:layout_weight="0.1"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:inputType="textPersonName"
+            android:id="@+id/nameEditText"
+            android:hint="Name"
+            android:textStyle="bold"
+            android:layout_height="45dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+
+        <EditText
+            android:layout_height="match_parent"
+            android:inputType="textPersonName"
+            android:id="@+id/teacherEditText"
+            android:hint="Teacher"
+            android:layout_weight="3"
+            android:layout_width="45dp"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left">
+
+            <TextView
+                android:text="Week:"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/textView"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"/>
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:id="@+id/weekSpinner"
+                android:layout_weight="0.3"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="right"
+            >
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:id="@+id/daySpinner"
+                android:gravity="center"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:id="@+id/roomEditText"
+                android:hint="Room"
+                android:ems="5"
+                />
+
+        </LinearLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <TextView
+            android:text="Start time:"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/starttime"
+            android:textSize="18sp"
+            android:gravity="left|center"
+            android:layout_marginRight="5dp"
+            android:layout_weight="7"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:id="@+id/startTimeEditText"
+            android:layout_weight="3"
+            android:hint="Start time"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <TextView
+            android:text="End time:"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/endtime"
+            android:textSize="18sp"
+            android:gravity="left|center"
+            android:layout_marginRight="5dp"
+            android:layout_weight="7"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:id="@+id/endTimeEditText"
+            android:layout_weight="3"
+            android:hint="End time"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:layout_gravity="center"
+            android:alpha="0"/>
+
+    </FrameLayout>
+
+    <Button
+        android:text="OK"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/accept"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:elevation="0dp"
+        android:visibility="visible"
+        android:layout_gravity="bottom"/>
+
+</LinearLayout>
