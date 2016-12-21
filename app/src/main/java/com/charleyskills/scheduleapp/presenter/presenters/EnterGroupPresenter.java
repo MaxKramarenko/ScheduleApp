@@ -43,7 +43,8 @@ public class EnterGroupPresenter
     public void getAllGroup()
     {
         Subscription getAllGroupsSubscription = service.api.getAllGroups()
-                .subscribeOn(Schedulers.newThread())
+                .subscribeOn(Schedulers.computation())
+                .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Func1<BaseResponse<List<Group>>, List<String>>()
                 {
@@ -134,7 +135,8 @@ public class EnterGroupPresenter
                 nextButton.setEnabled(false);
                 searchGroupEditText.setEnabled(false);
                 service.api.getSchedule(searchGroupEditText.getText().toString())
-                        .subscribeOn(Schedulers.newThread())
+                        .subscribeOn(Schedulers.computation())
+                        .unsubscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnError(new Action1<Throwable>()
                         {
@@ -166,7 +168,8 @@ public class EnterGroupPresenter
                             public Observable<BaseResponse<CurrentWeek>> call(BaseResponse<Schedule> scheduleBaseResponse)
                             {
                                 return service.api.getCurrentWeek()
-                                        .subscribeOn(Schedulers.newThread())
+                                        .subscribeOn(Schedulers.computation())
+                                        .unsubscribeOn(Schedulers.io())
                                         .observeOn(AndroidSchedulers.mainThread());
                             }
                         })

@@ -98,6 +98,7 @@ public class OwnScheduleFragment extends Fragment
                                 intent.putExtra("Name", AppSettings.ownSchedule.weeks.get(AppSettings.showWeek - 1).days.get(position).pairs.get(i).name);
                                 intent.putExtra("Number", AppSettings.ownSchedule.weeks.get(AppSettings.showWeek - 1).days.get(position).pairs.get(i).number);
                                 intent.putExtra("Teacher", AppSettings.ownSchedule.weeks.get(AppSettings.showWeek - 1).days.get(position).pairs.get(i).teacher);
+                                intent.putExtra("PairType", AppSettings.ownSchedule.weeks.get(AppSettings.showWeek - 1).days.get(position).pairs.get(i).type);
                                 intent.putExtra("Week", AppSettings.ownSchedule.weeks.get(AppSettings.showWeek - 1).days.get(position).pairs.get(i).week);
                                 intent.putExtra("Day", AppSettings.ownSchedule.weeks.get(AppSettings.showWeek - 1).days.get(position).pairs.get(i).day);
                                 intent.putExtra("Room", AppSettings.ownSchedule.weeks.get(AppSettings.showWeek - 1).days.get(position).pairs.get(i).room);
@@ -112,7 +113,8 @@ public class OwnScheduleFragment extends Fragment
                                     public void run()
                                     {
                                         ((TimelineActivity) getActivity()).service.api.deleteManageSchedule(AppSettings.ownSchedule.weeks.get(AppSettings.showWeek - 1).days.get(position).pairs.get(i).id)
-                                                .subscribeOn(Schedulers.newThread())
+                                                .subscribeOn(Schedulers.computation())
+                                                .unsubscribeOn(Schedulers.io())
                                                 .observeOn(AndroidSchedulers.mainThread())
                                                 .subscribe(new Subscriber<BaseResponse<Boolean>>()
                                                 {

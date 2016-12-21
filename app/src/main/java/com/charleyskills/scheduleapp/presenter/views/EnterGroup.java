@@ -55,6 +55,8 @@ public class EnterGroup extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_group);
 
+        overridePendingTransition(R.anim.custom_fade_in, R.anim.custom_fade_out);
+
         ButterKnife.inject(this);
 
         context = this;

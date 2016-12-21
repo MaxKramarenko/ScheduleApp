@@ -1,6 +1,5 @@
 package com.charleyskills.scheduleapp.presenter.views;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -37,6 +35,9 @@ public class AddPairActivity extends AppCompatActivity
 
     @InjectView(R.id.teacherEditText)
     EditText teacherEditText;
+
+    @InjectView(R.id.pairTypeSpinner)
+    Spinner pairTypeSpinner;
 
     @InjectView(R.id.weekSpinner)
     Spinner weekSpinner;
@@ -69,8 +70,7 @@ public class AddPairActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_pair);
 
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(0, 0);
+        overridePendingTransition(R.anim.custom_fade_in, R.anim.custom_fade_out);
 
         final Service service = new Service();
 
@@ -79,6 +79,7 @@ public class AddPairActivity extends AppCompatActivity
         weekSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, new String[]{ "1", "2" }));
         numberSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, new String[]{ "1", "2", "3", "4", "5", "6", "7", "8" }));
         daySpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, new String[]{"Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя"}));
+        pairTypeSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, new String[]{"Лаб", "Лек"}));
 
         intent = getIntent();
         editMode = intent.getBooleanExtra("Edit", false);
@@ -87,8 +88,9 @@ public class AddPairActivity extends AppCompatActivity
             nameEditText.setText(intent.getStringExtra("Name"));
             numberSpinner.setSelection(intent.getIntExtra("Number", 0) - 1);
             teacherEditText.setText(intent.getStringExtra("Teacher"));
+            pairTypeSpinner.setSelection(intent.getIntExtra("PairType", 0));
             weekSpinner.setSelection(intent.getIntExtra("Week", 0) - 1);
-            daySpinner.setSelection(intent.getIntExtra("Day", 0));
+            daySpinner.setSelection(intent.getIntExtra("Day", 0) - 1);
             roomEditText.setText(intent.getStringExtra("Room"));
             startTimeEditText.setText(intent.getStringExtra("StartTime"));
             endTimeEditText.setText(intent.getStringExtra("EndTime"));
@@ -114,7 +116,8 @@ public class AddPairActivity extends AppCompatActivity
                 accept.setEnabled(false);
 
                 service.api.updateManageSchedule(pair)
-                    .subscribeOn(Schedulers.newThread())
+                        .subscribeOn(Schedulers.computation())
+                        .unsubscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Subscriber<BaseResponse<String>>()
                     {
@@ -138,6 +141,21 @@ public class AddPairActivity extends AppCompatActivity
                             finish();
                         }
                     });
+            }
+        });
+
+        pairTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
+            {
+                pair.type = i;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView)
+            {
+                adapterView.getItemAtPosition(0);
             }
         });
 

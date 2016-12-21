@@ -58,7 +58,6 @@ public class TimelineActivity extends AppCompatActivity implements ScheduleFragm
     @InjectView(R.id.absentPairsTextView)
     TextView absentPairsTextView;
 
-//    TimelinePresenter mGroupPresenter;
     public Service service;
 
     @Override
@@ -66,6 +65,8 @@ public class TimelineActivity extends AppCompatActivity implements ScheduleFragm
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timetable);
+
+        overridePendingTransition(R.anim.custom_fade_in, R.anim.custom_fade_out);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
@@ -192,7 +193,6 @@ public class TimelineActivity extends AppCompatActivity implements ScheduleFragm
             public void onClick(View view)
             {
                 startActivityForResult(new Intent(getApplicationContext(), AddPairActivity.class), 0);
-                coverFrameLayout.animate().alpha(0).setDuration(220).setInterpolator(new DecelerateInterpolator()).start();
             }
         });
 
@@ -207,7 +207,8 @@ public class TimelineActivity extends AppCompatActivity implements ScheduleFragm
                     toolbarTextView.animate().alpha(0).setDuration(220).setInterpolator(new DecelerateInterpolator()).start();
 
                     service.api.getManageSchedule()
-                        .subscribeOn(Schedulers.newThread())
+                        .subscribeOn(Schedulers.computation())
+                        .unsubscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Subscriber<BaseResponse<OwnSchedule>>()
                         {
@@ -351,41 +352,49 @@ public class TimelineActivity extends AppCompatActivity implements ScheduleFragm
     {
         super.onActivityResult(requestCode, resultCode, data);
 
-        service.api.getManageSchedule()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<BaseResponse<OwnSchedule>>()
-                       {
-                           @Override
-                           public void onCompleted()
-                           {
+        coverFrameLayout.animate().alpha(0).setDuration(220).setInterpolator(new DecelerateInterpolator()).withEndAction(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                service.api.getManageSchedule()
+                        .subscribeOn(Schedulers.computation())
+                        .unsubscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<BaseResponse<OwnSchedule>>()
+                        {
+                            @Override
+                            public void onCompleted()
+                            {
 
-                           }
+                            }
 
-                           @Override
-                           public void onError(Throwable e)
-                           {
-                               Log.e("RxError", e.getMessage());
-                           }
+                            @Override
+                            public void onError(Throwable e)
+                            {
+                                Log.e("RxError", e.getMessage());
+                            }
 
-                           @Override
-                           public void onNext(BaseResponse<OwnSchedule> ownScheduleBaseResponse)
-                           {
-                               AppSettings.ownSchedule = ownScheduleBaseResponse.getData().getData();
+                            @Override
+                            public void onNext(BaseResponse<OwnSchedule> ownScheduleBaseResponse)
+                            {
+                                AppSettings.ownSchedule = ownScheduleBaseResponse.getData().getData();
 
-                               coverFrameLayout.animate().alpha(1).setDuration(220).setInterpolator(new AccelerateInterpolator()).withStartAction(new Runnable()
-                               {
-                                   @Override
-                                   public void run()
-                                   {
-                                       SmartFragmentStatePagerAdapter adapterViewPager = new OwnScheduleAdapter(getSupportFragmentManager());
-                                       vpPager.setAdapter(adapterViewPager);
+                                coverFrameLayout.animate().alpha(1).setDuration(220).setInterpolator(new AccelerateInterpolator()).withStartAction(new Runnable()
+                                {
+                                    @Override
+                                    public void run()
+                                    {
+                                        SmartFragmentStatePagerAdapter adapterViewPager = new OwnScheduleAdapter(getSupportFragmentManager());
+                                        vpPager.setAdapter(adapterViewPager);
 
-                                       checkDayIsAbsent();
-                                   }
-                               }).start();
-                           }
-                       });
+                                        checkDayIsAbsent();
+                                    }
+                                }).start();
+                            }
+                        });
+            }
+        }).start();
     }
 
     public void recreateOwnSchedule()

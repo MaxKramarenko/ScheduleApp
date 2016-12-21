@@ -56,8 +56,14 @@
             android:inputType="textPersonName"
             android:id="@+id/teacherEditText"
             android:hint="Teacher"
-            android:layout_weight="3"
+            android:layout_weight="6"
             android:layout_width="45dp"/>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/pairTypeSpinner"
+            android:layout_weight="2"/>
 
     </LinearLayout>
 
